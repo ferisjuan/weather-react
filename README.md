@@ -1,4 +1,4 @@
-![weather-react](https://github.com/ferisjuan/weather-app)
+![weather-react](https://github.com/ferisjuan/weather-react)
 
 # React Tailwindcss Boilerplate build with Vite
 
