@@ -1,19 +1,10 @@
-import { useCallback, useState } from 'react'
-import type { Location } from '~/types'
-import { getGeoCoords, getGridForecastPeriods, type Period } from '~/utils'
-import { Card } from './card'
+import { CurrentForecast } from './current-forecast'
 import { LocationForm } from './form/LocationForm.component'
+import { PreviewForecast } from './preview-forecast'
+import { useForecast } from './useForecast'
 
 function App() {
-  const [forecast, setForecast] = useState<Period[]>([])
-  console.log('🚀 ~ App ~ forecast:', forecast)
-
-  const onSubmit = useCallback(async (location: Location) => {
-    const coords = await getGeoCoords(location)
-
-    const forecast = await getGridForecastPeriods(coords)
-    setForecast(forecast)
-  }, [])
+  const { currentForecast, forecast, onSubmit } = useForecast()
 
   return (
     <main className="flex h-screen justify-center bg-zinc-800">
@@ -26,22 +17,12 @@ function App() {
           <LocationForm onSubmit={onSubmit} />
         </article>
 
-        <article className="col-span-3 col-start-2 row-span-4">
-          <Card>
-            <p>card</p>
-          </Card>
+        <article className="col-span-3 col-start-2 row-span-3">
+          <CurrentForecast currentForecast={currentForecast} />
         </article>
 
-        <article className="col-span-6 mx-8 row-span-2">
-          <div className="carousel flex gap-4">
-            {forecast.slice(0,5).map((period) => (
-              <div className="carousel-item flex flex-column">
-                <Card key={period.number}>
-                  <p>{period.temperature}</p>
-                </Card>
-              </div>
-            ))}
-          </div>
+        <article className="col-span-6 row-span-2 mx-8">
+          <PreviewForecast forecast={forecast} />
         </article>
       </section>
     </main>
