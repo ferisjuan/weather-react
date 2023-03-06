@@ -1,11 +1,10 @@
-//use geocoding census api use URL from javascript
-const geoCordsUrl = new URL('https://geocoding.geo.census.gov')
-geoCordsUrl.pathname = '/geocoder/locations/address'
+import { Location } from '../../types'
 
-interface Props {
-  city: string
-  state: string
-  street: string
+const requestOptions: RequestInit = {
+  headers: new Headers({
+    'Content-Type': 'application/json; charset=utf-8',
+    Accept: 'application/json; charset=utf-8'
+  })
 }
 
 interface GeoCoords {
@@ -16,18 +15,14 @@ interface GeoCoords {
 export const getGeoCoords = async ({
   city,
   state,
-  street
-}: Props): Promise<GeoCoords> => {
-  const params = new URLSearchParams({
-    street,
-    city,
-    state,
-    benchmark: 'Public_AR_Current',
-    format: 'json'
-  })
-  geoCordsUrl.search = params.toString()
+  street,
+  zip
+}: Location): Promise<GeoCoords> => {
+  const response = await fetch(
+    `/api-geocoder/geocoder/locations/address?street=${street}&city=${city}&state=${state}&zip=${zip}&benchmark=Public_AR_Current&format=json`,
+    requestOptions
+  )
 
-  const response = await fetch(geoCordsUrl.toString())
   const data = await response.json()
 
   const [matches] = data.result.addressMatches
