@@ -1,5 +1,4 @@
 import { Period } from '~/utils'
-import { Card } from '../card'
 
 interface Props {
   forecast: Period[]
@@ -7,27 +6,50 @@ interface Props {
 
 export const PreviewForecast: React.FC<Props> = ({ forecast }) => {
   return (
-    <div className="carousel flex justify-evenly">
-      {forecast.slice(1, 6).map((period) => (
-        <div
-          className="carousel-item flex max-w-[200px] flex-col"
-          key={period.number}
-        >
-          <Card>
-            <img
-              alt={period.icon}
-              className="mt-2 h-24 w-24"
-              src={period.icon}
-            />
-            <div className="prose w-28">
-              <p className="overflow-hidden text-ellipsis">{period.name}</p>
-            </div>
-            <p>
-              {period.temperature}&deg; {period.temperatureUnit}
-            </p>
-          </Card>
-        </div>
-      ))}
+    <div className="h-full overflow-auto">
+      <table className="table-compact table  w-full">
+        <thead>
+          <tr className="prose">
+            <th>Weather</th>
+            <th>Date</th>
+            <th>Temperature</th>
+            <th>Humidity</th>
+            <th>Wind (mph)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {forecast.slice(1, -1).map((period) => (
+            <tr
+              key={period.number}
+              className={`${!period.isDaytime && 'active'}`}
+            >
+              <th>
+                <div className="flex items-center space-x-3">
+                  <div className="avatar">
+                    <div className="mask mask-squircle h-12 w-12">
+                      <img alt={period.icon} src={period.icon} />
+                    </div>
+                  </div>
+                </div>
+              </th>
+
+              <th className="prose">{period.name}</th>
+
+              <th className="prose">
+                {period.temperature}&deg; {period.temperatureUnit}
+              </th>
+
+              <th className="prose">{period.relativeHumidity.value}</th>
+
+              <th className="prose">
+                {`${period.windSpeed.replace(' to ', '-').replace('mph', '')} ${
+                  period.windDirection
+                }`}
+              </th>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   )
 }

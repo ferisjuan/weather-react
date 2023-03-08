@@ -13,7 +13,7 @@ export const LocationForm: React.FC<Props> = ({ onSubmit }) => {
       <section className="container flex flex-col">
         <div className="form-control mb-3">
           <input
-            className="input-ghost input input-md w-full border-none bg-orange-900/50"
+            className="input-ghost input input-md w-full border-none bg-secondary/50"
             placeholder="State"
             type="text"
             {...register('state')}
@@ -22,7 +22,7 @@ export const LocationForm: React.FC<Props> = ({ onSubmit }) => {
 
         <div className="form-control mb-3">
           <input
-            className="input-ghost input input-md w-full border-none bg-orange-900/50"
+            className="input-ghost input input-md w-full border-none bg-secondary/50"
             placeholder="City"
             type="text"
             {...register('city')}
@@ -31,7 +31,7 @@ export const LocationForm: React.FC<Props> = ({ onSubmit }) => {
 
         <div className="form-control mb-3">
           <input
-            className="input-ghost input input-md w-full border-none bg-orange-900/50"
+            className="input-ghost input input-md w-full border-none bg-secondary/50"
             placeholder="Street number and name"
             type="text"
             {...register('street')}
@@ -40,14 +40,14 @@ export const LocationForm: React.FC<Props> = ({ onSubmit }) => {
 
         <div className="form-control mb-3">
           <input
-            className="input-ghost input input-md w-full border-none bg-orange-900/50"
+            className="input-ghost input input-md w-full border-none bg-secondary/50"
             placeholder="Zip code (optional)"
             type="text"
             {...register('zip')}
           />
         </div>
 
-        <button className="btn-ghost btn bg-orange-900">Go!</button>
+        <button className="btn-ghost btn bg-secondary">Go!</button>
       </section>
     </form>
   )
