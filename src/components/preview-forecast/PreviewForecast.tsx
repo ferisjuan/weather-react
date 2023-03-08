@@ -1,4 +1,5 @@
 import { Period } from '~/utils'
+import dayjs from 'dayjs'
 
 interface Props {
   forecast: Period[]
@@ -33,7 +34,9 @@ export const PreviewForecast: React.FC<Props> = ({ forecast }) => {
                 </div>
               </th>
 
-              <th className="prose">{period.name}</th>
+              <th className="prose">
+                {dayjs(period.startTime).format('dddd')}
+              </th>
 
               <th className="prose">
                 {period.temperature}&deg; {period.temperatureUnit}
