@@ -1,12 +1,20 @@
+import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
 import type { Location } from '~/types'
+import { schema } from './LocationForm.schema'
 
 interface Props {
   onSubmit: (location: Location) => void
 }
 
 export const LocationForm: React.FC<Props> = ({ onSubmit }) => {
-  const { register, handleSubmit } = useForm<Location>({})
+  const {
+    formState: { errors, isValid },
+    handleSubmit,
+    register
+  } = useForm<Location>({
+    resolver: yupResolver(schema)
+  })
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -18,6 +26,8 @@ export const LocationForm: React.FC<Props> = ({ onSubmit }) => {
             type="text"
             {...register('state')}
           />
+
+          {errors.state && <small>errors.state.message</small>}
         </div>
 
         <div className="form-control mb-3">
@@ -27,6 +37,8 @@ export const LocationForm: React.FC<Props> = ({ onSubmit }) => {
             type="text"
             {...register('city')}
           />
+
+          {errors.city && <small>errors.city.message</small>}
         </div>
 
         <div className="form-control mb-3">
@@ -36,6 +48,8 @@ export const LocationForm: React.FC<Props> = ({ onSubmit }) => {
             type="text"
             {...register('street')}
           />
+
+          {errors.street && <small>errors.street.message</small>}
         </div>
 
         <div className="form-control mb-3">
@@ -47,7 +61,9 @@ export const LocationForm: React.FC<Props> = ({ onSubmit }) => {
           />
         </div>
 
-        <button className="btn-ghost btn bg-secondary">Go!</button>
+        <button className="btn-ghost btn bg-secondary" disabled={!isValid}>
+          {isValid ? 'Go!' : 'Please fill out all fields'}
+        </button>
       </section>
     </form>
   )
