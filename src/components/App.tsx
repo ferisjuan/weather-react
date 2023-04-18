@@ -1,14 +1,17 @@
 import { CurrentForecast } from './current-forecast'
 import { LocationForm } from './form/LocationForm.component'
 import { PreviewForecast } from './preview-forecast'
+import { Spinner } from './spinner'
 import { useForecast } from './useForecast.hook'
 
 function App() {
-  const { currentForecast, forecast, onSubmit } = useForecast()
+  const { currentForecast, forecast, loading, onSubmit } = useForecast()
 
   return (
     <main className="flex h-screen justify-center bg-zinc-800">
-      <section className="grid w-4/5 grid-cols-6 grid-rows-6 justify-center gap-6 bg-blue-600/40 py-14">
+      <section className="relative grid w-4/5 grid-cols-6 grid-rows-6 justify-center gap-6 bg-blue-600/40 py-14">
+        {loading && <Spinner />}
+
         <article className="prose ml-6 min-w-max text-center">
           <h1>Weather Wiz</h1>
         </article>
