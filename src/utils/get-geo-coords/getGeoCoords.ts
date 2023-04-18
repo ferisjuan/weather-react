@@ -1,4 +1,5 @@
-import { Location } from '../../types'
+import { getGeocodeUrl } from '~/constants'
+import { Location } from '~/types'
 
 const requestOptions: RequestInit = {
   headers: new Headers({
@@ -12,16 +13,8 @@ interface GeoCoords {
   lng: number
 }
 
-export const getGeoCoords = async ({
-  city,
-  state,
-  street,
-  zip
-}: Location): Promise<GeoCoords> => {
-  const response = await fetch(
-    `/api-geocoder/geocoder/locations/address?street=${street}&city=${city}&state=${state}&zip=${zip}&benchmark=Public_AR_Current&format=json`,
-    requestOptions
-  )
+export const getGeoCoords = async (location: Location): Promise<GeoCoords> => {
+  const response = await fetch(getGeocodeUrl(location), requestOptions)
 
   const data = await response.json()
 

@@ -1,11 +1,9 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { Location } from '../types'
-import { getGeoCoords, getGridForecastPeriods, Period } from '../utils'
+import { Period, getGeoCoords, getGridForecastPeriods } from '../utils'
 
 export const useForecast = () => {
   const [forecast, setForecast] = useState<Period[]>([])
-
-  const currentForecast = useMemo(() => forecast[0], [forecast])
 
   const onSubmit = useCallback(async (location: Location) => {
     const coords = await getGeoCoords(location)
@@ -14,5 +12,5 @@ export const useForecast = () => {
     setForecast(forecast)
   }, [])
 
-  return { currentForecast, forecast, onSubmit }
+  return { currentForecast: forecast[0], forecast, onSubmit }
 }

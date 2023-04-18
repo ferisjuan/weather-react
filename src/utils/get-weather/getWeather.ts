@@ -1,3 +1,4 @@
+import { API_ENDPOINT } from '../../constants'
 import { Forecast, GridProperties, Period } from './types'
 
 interface Props {
@@ -9,9 +10,7 @@ export const getGridProperties = async ({
   lat,
   lng
 }: Props): Promise<GridProperties> => {
-  const response = await fetch(
-    `https://api.weather.gov/points/${lat},${lng}`
-  )
+  const response = await fetch(`${API_ENDPOINT.POINTS}/${lat},${lng}`)
 
   const data = await response.json()
 

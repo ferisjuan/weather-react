@@ -8,7 +8,7 @@ function App() {
 
   return (
     <main className="flex h-screen justify-center bg-zinc-800">
-      <section className="grid w-4/5 grid-cols-6 grid-rows-6 justify-center gap-6 bg-blue-600/40 bg-hero-pattern py-14">
+      <section className="grid w-4/5 grid-cols-6 grid-rows-6 justify-center gap-6 bg-blue-600/40 py-14">
         <article className="prose ml-6 min-w-max text-center">
           <h1>Weather Wiz</h1>
         </article>
